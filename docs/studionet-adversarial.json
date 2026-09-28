@@ -1,0 +1,120 @@
+{
+  "contract": "0xF853b3a956a184f77A6ca60C0d5f3Fa106F714B5",
+  "transactions": [
+    {
+      "method": "observe_case",
+      "tx": "0x3d0b2833b1bf9897187e8e3974b55fc2440f72f4b9f5e5b7c9dd020880845943",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x3d0b2833b1bf9897187e8e3974b55fc2440f72f4b9f5e5b7c9dd020880845943",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR"
+    },
+    {
+      "method": "register_case",
+      "tx": "0xddd61218f65ed76c45e3f24560fc8f54b54c3e8d36e4536e3f15148a7f0da318",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xddd61218f65ed76c45e3f24560fc8f54b54c3e8d36e4536e3f15148a7f0da318",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR"
+    },
+    {
+      "method": "register_case",
+      "tx": "0x7d7a5f60e005828074ff95cd6e4cdca1939d8a1ef7e967aa3d6afd6efbf888ce",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x7d7a5f60e005828074ff95cd6e4cdca1939d8a1ef7e967aa3d6afd6efbf888ce",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS"
+    },
+    {
+      "method": "observe_case",
+      "tx": "0x0ee9db9e8e2e62326cf609187d53638a9f131c3384e349dcd2e6b619124d8d5b",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x0ee9db9e8e2e62326cf609187d53638a9f131c3384e349dcd2e6b619124d8d5b",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR"
+    },
+    {
+      "method": "register_case",
+      "tx": "0xec6c69ad5a95a89d76fa0b98760cac72535c8c4f20eb7c74958bdd08a6a76704",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xec6c69ad5a95a89d76fa0b98760cac72535c8c4f20eb7c74958bdd08a6a76704",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS"
+    },
+    {
+      "method": "observe_case",
+      "tx": "0xc38b5d5f8a1b58c26ce3d7c584bf972a3ef8b41111e9a210cdbc2d240dd58518",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xc38b5d5f8a1b58c26ce3d7c584bf972a3ef8b41111e9a210cdbc2d240dd58518",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS"
+    }
+  ],
+  "readbacks": {
+    "terminal_replay_unchanged": {
+      "affected_function": "MIGRATE",
+      "authority_id": "OPTIMISM",
+      "chain_key": "OP_MAINNET",
+      "content_digest": "0912a41b9e4d8a29f2798510f0b4ac7d5e16a83ffd28f3c0e4e6e429e1745948",
+      "created_at": 1790560300,
+      "creator": "0xFeD97e2aE1A8C1983b7cA206B3545e6A2c685E43",
+      "effective_at": 1788134400,
+      "exit_deadline": 1788134400,
+      "id": 1,
+      "object_key": "HISTORICAL_PROOFS_V1_DB",
+      "observed_at": 1790560346,
+      "observer": "0xc67532aeF9D2879cBA9375a02E6217A3524657B8",
+      "policy_id": "MIGRATE_7D",
+      "published_at": 1785512945,
+      "reason": "POLICY_WINDOW_SATISFIED",
+      "release_id": "363177714",
+      "release_tag": "op-reth/v2.4.1",
+      "state": "DISCLOSURE_CONFIRMED",
+      "supersedes": 0
+    },
+    "duplicate_count_unchanged": 2,
+    "self_observation_unchanged": {
+      "affected_function": "MIGRATE",
+      "authority_id": "OPTIMISM",
+      "chain_key": "OP_MAINNET",
+      "content_digest": "",
+      "created_at": 1790560804,
+      "creator": "0xFeD97e2aE1A8C1983b7cA206B3545e6A2c685E43",
+      "effective_at": 0,
+      "exit_deadline": 0,
+      "id": 3,
+      "object_key": "OP_PROPOSER",
+      "observed_at": 0,
+      "observer": "0x0000000000000000000000000000000000000000",
+      "policy_id": "MIGRATE_7D",
+      "published_at": 0,
+      "reason": "",
+      "release_id": "",
+      "release_tag": "egress-window-self-observe-1790560800",
+      "state": "REGISTERED",
+      "supersedes": 0
+    },
+    "missing_source": {
+      "affected_function": "MIGRATE",
+      "authority_id": "OPTIMISM",
+      "chain_key": "OP_MAINNET",
+      "content_digest": "",
+      "created_at": 1790560884,
+      "creator": "0xFeD97e2aE1A8C1983b7cA206B3545e6A2c685E43",
+      "effective_at": 0,
+      "exit_deadline": 0,
+      "id": 4,
+      "object_key": "OP_PROPOSER",
+      "observed_at": 1790560923,
+      "observer": "0xc67532aeF9D2879cBA9375a02E6217A3524657B8",
+      "policy_id": "MIGRATE_7D",
+      "published_at": 0,
+      "reason": "SOURCE_INVALID",
+      "release_id": "",
+      "release_tag": "egress-window-nonexistent-1790560800",
+      "state": "UNRESOLVED",
+      "supersedes": 0
+    }
+  },
+  "result": "PASS"
+}

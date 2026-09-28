@@ -1,0 +1,40 @@
+{
+  "contract": "0xF853b3a956a184f77A6ca60C0d5f3Fa106F714B5",
+  "version": "EGRESS_WINDOW_V3",
+  "case_id": 1,
+  "fixture": {
+    "authority": "OPTIMISM",
+    "release_tag": "op-reth/v2.4.1",
+    "chain_key": "OP_MAINNET",
+    "object_key": "HISTORICAL_PROOFS_V1_DB",
+    "affected_function": "MIGRATE",
+    "policy_id": "MIGRATE_7D"
+  },
+  "transactions": [
+    {
+      "method": "register_case",
+      "tx": "0x830394ac67a67801c0a12b90db393c999ebce5a0894a1222baaa1565d5e1a5a7",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS"
+    },
+    {
+      "method": "observe_case",
+      "tx": "0xfad55f1744e09fd34f512eb90c827adc333af5aed1afba72da029d5dbf6f4d3b",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS"
+    }
+  ],
+  "final": {
+    "state": "DISCLOSURE_CONFIRMED",
+    "reason": "POLICY_WINDOW_SATISFIED",
+    "creator": "0xFeD97e2aE1A8C1983b7cA206B3545e6A2c685E43",
+    "observer": "0xc67532aeF9D2879cBA9375a02E6217A3524657B8",
+    "release_id": "363177714",
+    "content_digest": "0912a41b9e4d8a29f2798510f0b4ac7d5e16a83ffd28f3c0e4e6e429e1745948",
+    "published_at": 1785512945,
+    "effective_at": 1788134400,
+    "exit_deadline": 1788134400
+  }
+}
