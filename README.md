@@ -60,7 +60,7 @@ python -m pytest -q
 python -X utf8 -m genvm_linter.cli check contracts/egress_window.py
 ```
 
-Current result: **17 tests passing**.
+Current result: **20 tests passing**.
 
 ## Repository map
 
@@ -76,17 +76,15 @@ positive migration lifecycle plus a separate finalized adversarial ledger.
 
 ## Studionet deployment
 
-Current V3 contract:
+V4 contains the corrected policy-window calculation and is awaiting a fresh
+deployment. The prior V3 contract is retained only as historical evidence and
+must not be submitted as the V4 source deployment:
 [`0xF853b3a956a184f77A6ca60C0d5f3Fa106F714B5`](https://explorer-studio.genlayer.com/address/0xF853b3a956a184f77A6ca60C0d5f3Fa106F714B5)
 
 Evidence: [`docs/studionet-v3-e2e.json`](docs/studionet-v3-e2e.json) and
 [`docs/studionet-adversarial.json`](docs/studionet-adversarial.json).
 
-Historical V1 config readback: `EGRESS_WINDOW_V1` with architecture
-`AUTHORITY_BOUND_APPEND_ONLY_EXIT_CERTIFICATES`.
-
-V1 correctly rolled back two observations when validators returned
-`MAJORITY_DISAGREE`. V2 narrows comparative consensus to the exact deterministic
-state/reason consequence while retaining exact source identity, content digest
-and positive/interval timestamps. **The address above is historical V1 and V2
-must be redeployed before positive lifecycle evidence is collected.**
+V4 measures the policy minimum against the actual actionable interval
+`exit_deadline - published_at`. A later `effective_at` cannot rescue an exit
+deadline that closed too early. Timestamp ordering still requires
+`published_at < exit_deadline <= effective_at`.

@@ -1,4 +1,4 @@
-# EgressWindow V1 specification
+# EgressWindow V4 specification
 
 ## Proof obligation
 
@@ -43,6 +43,18 @@ Deterministic contract code controls:
 `DISCLOSURE_CONFIRMED` requires every mandatory predicate to be positively
 known. `UNKNOWN`, zero timestamps, mismatches, invalid source data and model
 schema errors cannot reach the positive state.
+
+The minimum notice window is the period during which the exit is actually
+available:
+
+```text
+exit_window = exit_deadline - published_at
+```
+
+The positive state requires `published_at < exit_deadline <= effective_at` and
+`exit_window >= policy minimum`. The interval to `effective_at` is deliberately
+not used for minimum-window compliance: a later restriction date cannot extend
+an exit path that already closed.
 
 Source failures are `UNRESOLVED`, not factual claims that a protocol failed to
 provide an exit. Material exceptions are `REVIEW_REQUIRED`.

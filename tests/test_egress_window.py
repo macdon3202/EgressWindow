@@ -92,6 +92,38 @@ def test_short_notice_window_is_deterministically_rejected(direct_vm, direct_dep
     assert contract.get_case(1)["reason"] == "NOTICE_WINDOW_TOO_SHORT"
 
 
+def test_later_effective_date_cannot_rescue_early_exit_deadline(direct_vm, direct_deploy):
+    contract = deploy(direct_vm, direct_deploy)
+    register(contract, direct_vm)
+    one_day_deadline = PUBLISHED_TS + 86400
+    much_later_effective = PUBLISHED_TS + 30 * 86400
+    assert observe(
+        contract,
+        direct_vm,
+        answer=finding(
+            effective_at=much_later_effective,
+            exit_deadline=one_day_deadline,
+        ),
+    ) == "INSUFFICIENT_WINDOW"
+    case = contract.get_case(1)
+    assert case["reason"] == "NOTICE_WINDOW_TOO_SHORT"
+    assert case["exit_deadline"] - case["published_at"] == 86400
+
+
+def test_exact_minimum_is_measured_to_exit_deadline(direct_vm, direct_deploy):
+    contract = deploy(direct_vm, direct_deploy)
+    register(contract, direct_vm)
+    exact_deadline = PUBLISHED_TS + 7 * 86400
+    assert observe(
+        contract,
+        direct_vm,
+        answer=finding(
+            effective_at=exact_deadline + 10 * 86400,
+            exit_deadline=exact_deadline,
+        ),
+    ) == "DISCLOSURE_CONFIRMED"
+
+
 def test_no_exit_is_not_fabricated_into_breach(direct_vm, direct_deploy):
     contract = deploy(direct_vm, direct_deploy)
     register(contract, direct_vm)
@@ -209,6 +241,6 @@ def test_consensus_failure_rolls_back(direct_vm, direct_deploy, monkeypatch):
 def test_config_declares_distinct_architecture(direct_vm, direct_deploy):
     contract = deploy(direct_vm, direct_deploy)
     config = contract.get_config()
-    assert config["version"] == "EGRESS_WINDOW_V3"
+    assert config["version"] == "EGRESS_WINDOW_V4"
     assert config["architecture"] == "AUTHORITY_BOUND_APPEND_ONLY_EXIT_CERTIFICATES"
     assert "MIGRATE_7D" in config["policies"]

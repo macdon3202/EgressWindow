@@ -8,7 +8,7 @@ import json
 from typing import Any
 from genlayer import *
 
-VERSION = "EGRESS_WINDOW_V3"
+VERSION = "EGRESS_WINDOW_V4"
 API = "https://api.github.com"
 PROMPT_TAG = "EGRESS_WINDOW_NOTICE_EXTRACTOR_V1"
 MAX_RESPONSE_BYTES = 96_000
@@ -246,7 +246,9 @@ def derive(value: dict, record: ExitCase) -> tuple[str, str]:
     _, minimum = policy(record.policy_id)
     if value["exit_deadline"] <= value["published_at"] or value["effective_at"] < value["exit_deadline"]:
         return INSUFFICIENT_WINDOW, "INVALID_EXIT_TIMELINE"
-    if value["effective_at"] - value["published_at"] < minimum:
+    # The usable exit window closes at exit_deadline.  A later policy
+    # effective date cannot extend or rescue an already closed exit path.
+    if value["exit_deadline"] - value["published_at"] < minimum:
         return INSUFFICIENT_WINDOW, "NOTICE_WINDOW_TOO_SHORT"
     return DISCLOSURE_CONFIRMED, "POLICY_WINDOW_SATISFIED"
 
