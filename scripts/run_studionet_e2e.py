@@ -89,12 +89,25 @@ def main() -> None:
     before = read(client, address, author, "get_config", [])
     if before.get("version") != "EGRESS_WINDOW_V4":
         raise RuntimeError(f"Refusing source/deployment mismatch: {before.get('version')}")
-    create = send(client, address, author, "register_case", ["OPTIMISM", tag, chain_key, object_key, affected_function, policy_id, 0])
-    case_id = int(read(client, address, author, "get_config", [])["case_count"])
+    transactions = []
+    if int(before["case_count"]) == 0:
+        transactions.append(send(client, address, author, "register_case", ["OPTIMISM", tag, chain_key, object_key, affected_function, policy_id, 0]))
+    case_id = 1
     registered = read(client, address, author, "get_case", [case_id])
-    observation = send(client, address, observer, "observe_case", [case_id])
+    expected_identity = {
+        "authority_id": "OPTIMISM", "release_tag": tag,
+        "chain_key": chain_key, "object_key": object_key,
+        "affected_function": affected_function, "policy_id": policy_id,
+    }
+    for key, expected in expected_identity.items():
+        if registered.get(key) != expected:
+            raise RuntimeError(f"Existing case 1 fixture mismatch at {key}: {registered.get(key)}")
+    if registered.get("state") == "REGISTERED":
+        transactions.append(send(client, address, observer, "observe_case", [case_id]))
     final = read(client, address, observer, "get_case", [case_id])
-    evidence = {"contract": address, "version": "EGRESS_WINDOW_V4", "minimum_window_formula": "exit_deadline - published_at", "fixture": {"authority": "OPTIMISM", "release_tag": tag, "chain_key": chain_key, "object_key": object_key, "affected_function": affected_function, "policy_id": policy_id}, "before": before, "case_id": case_id, "transactions": [create, observation], "registered": registered, "final": final}
+    evidence = {"contract": address, "version": "EGRESS_WINDOW_V4", "minimum_window_formula": "exit_deadline - published_at", "fixture": {"authority": "OPTIMISM", "release_tag": tag, "chain_key": chain_key, "object_key": object_key, "affected_function": affected_function, "policy_id": policy_id}, "before": before, "case_id": case_id, "transactions": transactions, "registered": registered, "final": final}
+    out = Path(__file__).resolve().parents[1] / "docs" / "studionet-v4-e2e.json"
+    out.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(evidence, indent=2, sort_keys=True))
 
 

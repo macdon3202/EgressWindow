@@ -35,13 +35,20 @@ def main():
     assert count_before == count_after
     proof["readbacks"]["duplicate_count_unchanged"] = count_after
 
-    # A unique, validly-shaped case proves the creator cannot perform its own
-    # observation. Dynamic IDs make this runner safe to resume after a partial
-    # network run without silently assuming the next case number.
+    # Resume a prior partial run when its registered self-observation fixture
+    # already exists; otherwise create a new unique one.
     nonce = int(time.time())
-    self_tag = f"egress-window-self-observe-{nonce}"
-    proof["transactions"].append(send(client, address, author, "register_case", ["OPTIMISM", self_tag, "OP_MAINNET", "OP_PROPOSER", "MIGRATE", "MIGRATE_7D", 0]))
-    self_case_id = int(read(client, address, author, "get_config", [])["case_count"])
+    count = int(read(client, address, author, "get_config", [])["case_count"])
+    self_case_id = 0
+    for candidate in range(2, count + 1):
+        existing = read(client, address, author, "get_case", [candidate])
+        if existing["release_tag"].startswith("egress-window-self-observe-") and existing["state"] == "REGISTERED":
+            self_case_id = candidate
+            break
+    if self_case_id == 0:
+        self_tag = f"egress-window-self-observe-{nonce}"
+        proof["transactions"].append(send(client, address, author, "register_case", ["OPTIMISM", self_tag, "OP_MAINNET", "OP_PROPOSER", "MIGRATE", "MIGRATE_7D", 0]))
+        self_case_id = int(read(client, address, author, "get_config", [])["case_count"])
     self_case = read(client, address, author, "get_case", [self_case_id])
     proof["transactions"].append(send(client, address, author, "observe_case", [self_case_id], expect_error=True))
     assert read(client, address, author, "get_case", [self_case_id]) == self_case
@@ -57,7 +64,7 @@ def main():
     assert missing["state"] == "UNRESOLVED" and missing["reason"] == "SOURCE_INVALID"
     proof["readbacks"]["missing_source"] = missing
     proof["result"] = "PASS"
-    out = Path(__file__).resolve().parents[1] / "docs" / "studionet-adversarial.json"
+    out = Path(__file__).resolve().parents[1] / "docs" / "studionet-v4-adversarial.json"
     out.write_text(json.dumps(proof, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(proof, indent=2))
 

@@ -1,0 +1,82 @@
+{
+  "before": {
+    "architecture": "AUTHORITY_BOUND_APPEND_ONLY_EXIT_CERTIFICATES",
+    "authorities": "OPTIMISM,ARBITRUM,AAVE_V3",
+    "case_count": 1,
+    "policies": "WITHDRAW_72H,WITHDRAW_7D,REDEEM_7D,MIGRATE_7D",
+    "source": "https://api.github.com",
+    "version": "EGRESS_WINDOW_V4"
+  },
+  "case_id": 1,
+  "contract": "0x3F03Ee9076dEB9AFA57EE077c8FE77542D38D9C0",
+  "final": {
+    "affected_function": "MIGRATE",
+    "authority_id": "OPTIMISM",
+    "chain_key": "OP_MAINNET",
+    "content_digest": "0912a41b9e4d8a29f2798510f0b4ac7d5e16a83ffd28f3c0e4e6e429e1745948",
+    "created_at": 1791017702,
+    "creator": "0xFeD97e2aE1A8C1983b7cA206B3545e6A2c685E43",
+    "effective_at": 1788134400,
+    "exit_deadline": 1788134400,
+    "id": 1,
+    "object_key": "HISTORICAL_PROOFS_V1_DB",
+    "observed_at": 1791017751,
+    "observer": "0xc67532aeF9D2879cBA9375a02E6217A3524657B8",
+    "policy_id": "MIGRATE_7D",
+    "published_at": 1785512945,
+    "reason": "POLICY_WINDOW_SATISFIED",
+    "release_id": "363177714",
+    "release_tag": "op-reth/v2.4.1",
+    "state": "DISCLOSURE_CONFIRMED",
+    "supersedes": 0
+  },
+  "fixture": {
+    "affected_function": "MIGRATE",
+    "authority": "OPTIMISM",
+    "chain_key": "OP_MAINNET",
+    "object_key": "HISTORICAL_PROOFS_V1_DB",
+    "policy_id": "MIGRATE_7D",
+    "release_tag": "op-reth/v2.4.1"
+  },
+  "minimum_window_formula": "exit_deadline - published_at",
+  "registered": {
+    "affected_function": "MIGRATE",
+    "authority_id": "OPTIMISM",
+    "chain_key": "OP_MAINNET",
+    "content_digest": "0912a41b9e4d8a29f2798510f0b4ac7d5e16a83ffd28f3c0e4e6e429e1745948",
+    "created_at": 1791017702,
+    "creator": "0xFeD97e2aE1A8C1983b7cA206B3545e6A2c685E43",
+    "effective_at": 1788134400,
+    "exit_deadline": 1788134400,
+    "id": 1,
+    "object_key": "HISTORICAL_PROOFS_V1_DB",
+    "observed_at": 1791017751,
+    "observer": "0xc67532aeF9D2879cBA9375a02E6217A3524657B8",
+    "policy_id": "MIGRATE_7D",
+    "published_at": 1785512945,
+    "reason": "POLICY_WINDOW_SATISFIED",
+    "release_id": "363177714",
+    "release_tag": "op-reth/v2.4.1",
+    "state": "DISCLOSURE_CONFIRMED",
+    "supersedes": 0
+  },
+  "transactions": [
+    {
+      "method": "register_case",
+      "tx": "0x841bc9bb76d0e03db4216269092c4ff331a04a8c72960df17ccbd050bc142dd0",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x841bc9bb76d0e03db4216269092c4ff331a04a8c72960df17ccbd050bc142dd0",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS"
+    },
+    {
+      "method": "observe_case",
+      "tx": "0x92c46a8504481b7e4795efe1d4b8eda1af2186372695f9a3ea9329f664bfc4a2",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x92c46a8504481b7e4795efe1d4b8eda1af2186372695f9a3ea9329f664bfc4a2",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS"
+    }
+  ],
+  "version": "EGRESS_WINDOW_V4"
+}

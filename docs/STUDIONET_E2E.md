@@ -1,8 +1,51 @@
 # Studionet E2E evidence
 
-Status: **V3 LIVE HAPPY PATH AND ADVERSARIAL AUDIT PASS**.
+Status: **V4 LIVE HAPPY PATH AND ADVERSARIAL AUDIT PASS**.
 
-## V3 live evidence
+## V4 corrected deployment
+
+- Contract: [`0x3F03Ee9076dEB9AFA57EE077c8FE77542D38D9C0`](https://explorer-studio.genlayer.com/address/0x3F03Ee9076dEB9AFA57EE077c8FE77542D38D9C0)
+- Deployment transaction: [`0xb0f67a…c97c`](https://explorer-studio.genlayer.com/tx/0xb0f67af002e18bedde07eb041dbaba04af2e74b842e84f241bd7c9eadbe2c97c)
+- Version readback: `EGRESS_WINDOW_V4`
+- Submitted source formula: `exit_deadline - published_at`
+- Register by wallet A: [`0x841bc9…42dd0`](https://explorer-studio.genlayer.com/tx/0x841bc9bb76d0e03db4216269092c4ff331a04a8c72960df17ccbd050bc142dd0) — finalized / majority agree / success.
+- Observe by wallet B: [`0x92c46a…fc4a2`](https://explorer-studio.genlayer.com/tx/0x92c46a8504481b7e4795efe1d4b8eda1af2186372695f9a3ea9329f664bfc4a2) — finalized / majority agree / success.
+- Final readback: `DISCLOSURE_CONFIRMED / POLICY_WINDOW_SATISFIED`.
+- Creator: `0xFeD97e2aE1A8C1983b7cA206B3545e6A2c685E43`.
+- Independent observer: `0xc67532aeF9D2879cBA9375a02E6217A3524657B8`.
+- Exact ledgers: [`studionet-v4-e2e.json`](studionet-v4-e2e.json) and [`studionet-v4-adversarial.json`](studionet-v4-adversarial.json).
+
+### Submitted/deployed source parity
+
+The explorer **Contract** tab for the V4 address exposes the deployed source.
+It shows `VERSION = "EGRESS_WINDOW_V4"`, preserves the ordering guard
+`published_at < exit_deadline <= effective_at`, and contains the corrected
+minimum-window expression:
+
+```python
+if value["exit_deadline"] - value["published_at"] < minimum:
+```
+
+Those lines match [`contracts/egress_window.py`](../contracts/egress_window.py),
+whose SHA-256 is
+`E9BD17C6C3D0419FEBE61E067503C7FD2D3D4ACC1581E47906394B595B423329`.
+This provides inspectable deployed-source evidence in addition to the V4
+version readback.
+
+The V4 adversarial run proves terminal replay, duplicate identity and creator
+self-observation all finalize with consensus-agreed execution errors and leave
+the relevant state unchanged. A nonexistent official tag safely records
+`UNRESOLVED / SOURCE_INVALID` instead of a positive certificate.
+
+The reviewer-requested early-deadline/later-effective-date scenario is a
+deterministic regression test because no authoritative live release is expected
+to publish deliberately contradictory timestamps. The test fixes publication
+at day 0, exit deadline at day 1 and effective date at day 30; V4 returns
+`INSUFFICIENT_WINDOW / NOTICE_WINDOW_TOO_SHORT`. A separate boundary test proves
+that an exit deadline exactly seven days after publication satisfies a 7-day
+policy. Both are part of the 20-test passing suite.
+
+## Historical V3 live evidence
 
 - Contract: [`0xF853b3a956a184f77A6ca60C0d5f3Fa106F714B5`](https://explorer-studio.genlayer.com/address/0xF853b3a956a184f77A6ca60C0d5f3Fa106F714B5)
 - Version readback: `EGRESS_WINDOW_V3`

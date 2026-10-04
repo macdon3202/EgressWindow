@@ -71,18 +71,21 @@ Current result: **20 tests passing**.
 - `docs/TEST_MATRIX.md` — required branch coverage
 - `scripts/run_studionet_e2e.py` — two-wallet live evidence runner
 
-V2 live evidence is retained as historical audit evidence. V3 has a finalized
-positive migration lifecycle plus a separate finalized adversarial ledger.
+Prior live evidence is retained as historical audit evidence. V4 has a
+finalized two-wallet migration lifecycle plus a separate finalized adversarial
+ledger, and its deployed version readback matches the submitted source.
 
 ## Studionet deployment
 
-V4 contains the corrected policy-window calculation and is awaiting a fresh
-deployment. The prior V3 contract is retained only as historical evidence and
-must not be submitted as the V4 source deployment:
-[`0xF853b3a956a184f77A6ca60C0d5f3Fa106F714B5`](https://explorer-studio.genlayer.com/address/0xF853b3a956a184f77A6ca60C0d5f3Fa106F714B5)
+Current V4 contract:
+[`0x3F03Ee9076dEB9AFA57EE077c8FE77542D38D9C0`](https://explorer-studio.genlayer.com/address/0x3F03Ee9076dEB9AFA57EE077c8FE77542D38D9C0)
 
-Evidence: [`docs/studionet-v3-e2e.json`](docs/studionet-v3-e2e.json) and
-[`docs/studionet-adversarial.json`](docs/studionet-adversarial.json).
+Evidence: [`docs/studionet-v4-e2e.json`](docs/studionet-v4-e2e.json),
+[`docs/studionet-v4-adversarial.json`](docs/studionet-v4-adversarial.json), and
+the human-readable [`docs/STUDIONET_E2E.md`](docs/STUDIONET_E2E.md).
+
+Reviewer entry point: [`REVIEW_RESPONSE.md`](REVIEW_RESPONSE.md). Deployment
+transaction: [`0xb0f67a…c97c`](https://explorer-studio.genlayer.com/tx/0xb0f67af002e18bedde07eb041dbaba04af2e74b842e84f241bd7c9eadbe2c97c).
 
 V4 measures the policy minimum against the actual actionable interval
 `exit_deadline - published_at`. A later `effective_at` cannot rescue an exit
